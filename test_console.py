@@ -7,16 +7,27 @@ import os
 import json
 import pycodestyle
 import io
-from io import stringIO
-from console import HBNBCommand
-from models.engine.file_storage import FileStorage
+from io import StringIO
 from unittest.mock import patch
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
+
+console = __import__("console.py")
+HBNBCommand = console.HBNBCommand
+base = __import__("models/base_model.py")
+BaseModel = base.BaseModel
+user = __import__("models/user.py")
+User = user.User
+place = __import__("models/place.py")
+Place = place.Place
+state = __import__("models/state.py")
+State = state.State
+city = __import__("models/city.py")
+City = city.City
+amenity = __import__("models/amenity.py")
+Amenity = amenity.Amenity
+review = __import__("models/review.py")
+Review = review.Review
+filestorage = __import__("models/engine/file_storage.py")
+FileStorage = filestorage.FileStorage
 
 
 class TestCommand(unittest.TestCase):

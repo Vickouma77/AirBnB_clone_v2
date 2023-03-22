@@ -1,14 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-import shlex
 
 
 class FileStorage:
@@ -20,9 +12,9 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
             cls_objects = {}
-            for key, value in FileStorage.__objects.items():
-                if key.startswith(cls.__name__):
-                    cls_objects.update({key: value})
+            for k, v in FileStorage.__objects.items():
+                if k.startswith(cls.__name__):
+                    cls_objects.update({k: v})
             return cls_objects
         else:
             return FileStorage.__objects
@@ -38,7 +30,15 @@ class FileStorage:
             temp.update(FileStorage.__objects)
             for key, val in temp.items():
                 temp[key] = val.to_dict()
-            json.dump(temp, f)
+            json.dump(temp, f, sort_keys=True, indent=4)
+
+    def delete(self, obj=None):
+        """Deletes the object obj if obj is in __objects"""
+        if obj is not None:
+            for k, v in FileStorage.__objects.items():
+                if v is obj:
+                    tmp = k
+            FileStorage.__objects.pop(tmp)
 
     def reload(self):
         """Loads storage dictionary from file"""
@@ -51,10 +51,10 @@ class FileStorage:
         from models.review import Review
 
         classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+            'BaseModel': BaseModel, 'User': User, 'Place': Place,
+            'State': State, 'City': City, 'Amenity': Amenity,
+            'Review': Review
+        }
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
@@ -64,10 +64,6 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-    def delete(self, obj=None):
-        """delete obj from __objects if it's inside"""
-        if obj is not None:
-            for key, value in FileStorage.__objects.items():
-                if value is obj:
-                    tmp = key
-            FileStorage.__objects.pop(tmp)
+    def close(self):
+        """Handles storage close"""
+        self.reload()

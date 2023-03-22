@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""This module defines a class to manage database storage for hbnb"""
-from os import getenv
+"""This module defines a class to manage db storage for hbnb clone"""
+from os import getenv, remove
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -16,8 +16,8 @@ from models.state import State
 from models.user import User
 
 
-class DBStorage:
-    """DataBase Storage, contains engine and session"""
+class DBStorage():
+    """This class manages storage in a database."""
 
     __engine = None
     __session = None
@@ -25,7 +25,7 @@ class DBStorage:
     classes = [Amenity, City, Place, Review, State, User]
 
     def __init__(self):
-        """Instantiate the DBStorage class"""
+        """Instantiates the DBStorage class"""
 
         mySQL_u = getenv("HBNB_MYSQL_USER")
         mySQL_p = getenv("HBNB_MYSQL_PWD")
@@ -37,24 +37,24 @@ class DBStorage:
 
         self.__engine = create_engine(URL(**url), pool_pre_ping=True)
 
-        if getenv('HBNB_ENV') == 'test':
+        if getenv('HBNB_ENV') == "test":
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """query on the current database"""
-        objcts = []
-        dico = {}
+        """Returns a dictionary of models currently in database"""
+        objs = []
+        dct = {}
         if cls is None:
             for item in self.classes:
-                objcts.extend(self.__session.query(item).all())
+                objs.extend(self.__session.query(item).all())
         else:
             if type(cls) is str:
                 cls = eval(cls)
-            objcts = self.__session.query(cls).all()
+            objs = self.__session.query(cls).all()
 
-        for obj in objcts:
-            dico[obj.__class__.__name__ + '.' + obj.id] = obj
-        return dico
+        for obj in objs:
+            dct[obj.__class__.__name__ + '.' + obj.id] = obj
+        return dct
 
     def new(self, obj):
         """Adds the object to the database"""

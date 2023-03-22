@@ -81,5 +81,4 @@ class DBStorage:
     def close(self):
         """ calls remove()
         """
->>>>>>> clone_branch1
         self.__session.close()

@@ -71,3 +71,7 @@ class BaseModel:
         """ delete object
         """
         models.storage.delete(self)
+<<<<<<< HEAD
+=======
+
+>>>>>>> clone_branch1

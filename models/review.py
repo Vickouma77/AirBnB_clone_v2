@@ -12,9 +12,9 @@ class Review(BaseModel):
     __tablename__ = "reviews"
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
-        state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
-        name = Column(String(128), nullable=False)
-        places = relationship("Place", cascade="all, delete", backref="cities")
+        place_id = Column(String(60), ForeignKey("places.id"), nullable=False)
+        user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+        text = Column(String(1024), nullable=False)
     else:
         place_id = ""
         user_id = ""

@@ -19,7 +19,7 @@ echo "<!DOCTYPE html>
       </html>" | tee /data/web_static/releases/test/index.html
 
 #creating a symbolic link
-rm -f /data/web_static/current && ln -sf /data/web_static/releases/test/ /data/web_static/current
+ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 #change ownership
 chown ubuntu:ubuntu /data

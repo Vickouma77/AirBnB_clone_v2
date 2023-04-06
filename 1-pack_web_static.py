@@ -4,7 +4,7 @@ contents of the web_static folder of our AirBnB Clone repo
 using the function do_pack.
 """
 
-from fabric import *
+from fabric.api import local
 import time
 
 

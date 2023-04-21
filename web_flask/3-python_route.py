@@ -23,7 +23,7 @@ def c_is_fun(text):
     """print C followed by the value of the text variable"""
     return 'C {}'.format(text.replace('_', ' '))
 
-
+@app.route('/python')
 @app.route('/python/<text>')
 def python_is_cool(text='is cool'):
     """display Python followed by the value of the text"""
@@ -31,4 +31,4 @@ def python_is_cool(text='is cool'):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host=0.0.0.0, port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

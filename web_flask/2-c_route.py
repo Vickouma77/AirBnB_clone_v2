@@ -18,12 +18,11 @@ def hbnb():
     return 'HBNB'
 
 
-@app.route('/c/<text')
+@app.route('/c/<text>')
 def c_is_fun():
     """print c followed by the value of the text variable"""
     return f'c {text.replace("_", " ")}'
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

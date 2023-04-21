@@ -12,6 +12,7 @@ def hello_hbnb():
     """returns Hello HBNB"""
     return 'Hello HBNB'
 
+
 @app.route('/hbn')
 def hbnb():
     """return HBNB"""
@@ -22,6 +23,7 @@ def hbnb():
 def c_is_fun(text):
     """print C followed by the value of the text variable"""
     return 'C {}'.format(text.replace('_', ' '))
+
 
 @app.route('/python')
 @app.route('/python/<text>')

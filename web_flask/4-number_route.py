@@ -29,7 +29,7 @@ def c_is_fun(text):
 @app.route('/python/<text>')
 def python_is_cool(text='is cool'):
     """display Python followed by the value of the text"""
-    return 'python {}'.format(text.replace('_', ' '))
+    return 'python {}'.format(text.replace('_', ' ')
 
 
 @app.route('/number/<int:n>')

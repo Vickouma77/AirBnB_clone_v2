@@ -35,7 +35,7 @@ def python_is_cool(text='is cool'):
 @app.route('/number/<int:n>')
 def number(n):
     """display n is a number only if n is an integer"""
-    return '{} is number'.format(n)
+    return '{:i} is number'.format(n)
 
 
 if __name__ == '__main__':

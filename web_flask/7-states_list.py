@@ -8,17 +8,17 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-@app.teardown_appcontext
-def close_db(exc):
-    """close the current session of sqlalchemist"""
-    storage.close()
-
-
-@app.route('/states_list')
+@app.route('/states_list', strict_slashes=False)
 def states_list():
-    """Displays an HTML page with a list of all State objects in DBStorage"""
-    states = storage.all(State).values()
-    return render_template("7-states_list.html", states=states)
+    """Display html page with state listed in order"""
+    states = sorted(list(storage.all("state").values()), key=lambda x: x.name)
+    return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown_db(exception):
+    """close storage on teardown"""
+    storage.close()
 
 
 if __name__ == "__main__":
